@@ -101,3 +101,33 @@ function animateFlow() {
 }
 
 animateFlow();
+fetch("config/codex-model.json")
+    .then(r => r.json())
+    .then(model => {
+        codexModel = model;
+        engine = new CodexEngine(model);
+        logSystem("CÓDEX ENGINE v0.1 iniciado.");
+    });
+const reply = engine.synthesizeResponse(text);
+addMessage(reply, "CÓDEX");
+
+updateKernelVisual();
+function updateKernelVisual() {
+    const st = engine.getKernelState();
+    const core = document.querySelector("#kernel-core .pulse");
+
+    if (!core) return;
+
+    let color;
+
+    switch (st.vibration) {
+        case "Nzuri": color = "#00ffaa"; break;
+        case "Luminarius": color = "#ffdd44"; break;
+        case "EMÍLIA": color = "#ff44aa"; break;
+        case "Zalaya": color = "#66aaff"; break;
+        default: color = "#00eaff";
+    }
+
+    core.style.background = color;
+    core.style.boxShadow = `0 0 12px ${color}`;
+}
