@@ -1,3 +1,5 @@
+import { CodexEngine } from "./config/codex-engine.js";
+let engine = null;
 const modulesDiv = document.getElementById("modules");
 const chatBox = document.getElementById("chat-box");
 const sendBtn = document.getElementById("send-btn");
